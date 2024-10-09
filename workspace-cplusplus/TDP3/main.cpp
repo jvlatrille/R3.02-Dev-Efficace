@@ -12,7 +12,7 @@ using namespace std;
 
 // Sous-programmes
 // Q2 -liste de string
-void listeSimple(); // But : Créer une iste et itérer dedans
+void listeSimple(); // But : Créer une liste et itérer dedans
 // Q7 - liste de pair
 void listePaires(); // But : Créer une liste de paires et itérer dedans
 // Q11 - map
@@ -24,19 +24,18 @@ void leDeque(); // But : Créer un deque et itérer dedans
 
 int main()
 {
-    /*
-        cout << "Appel liste simple." << endl;
-        listeSimple();
+    cout << "Appel liste simple." << endl;
+    listeSimple();
 
-        cout << endl
-             << endl;
+    cout << endl
+         << endl;
 
-        cout << "Appel liste Paires." << endl;
-        listePaires();
+    cout << "Appel liste Paires." << endl;
+    listePaires();
 
-        cout << endl
-             << endl;
-    */
+    cout << endl
+         << endl;
+
     cout << "Appel map." << endl;
     leMap();
 
@@ -69,17 +68,10 @@ void listeSimple()
     uneListeS.push_back("Philippe");
     uneListeS.push_back("Patrick");
 
-    // Créer un itérateur
-    ListeS::iterator iterateurListeS;
-
-    // Initialiser l'itérateur au début de la liste
-    iterateurListeS = uneListeS.begin();
-
-    // Affiche chaque élément de la liste
-    while (iterateurListeS != uneListeS.end())
+    // Itérer et afficher chaque élément de la liste
+    for (ListeS::iterator it = uneListeS.begin(); it != uneListeS.end(); ++it)
     {
-        cout << *iterateurListeS << endl;
-        iterateurListeS++;
+        cout << *it << endl;
     }
 }
 
@@ -91,27 +83,16 @@ void listePaires()
     typedef list<pairS> ListeP;
     ListeP maListeP;
 
-    // Créer et remplir les paires
-    pair<string, string> unePaire1("Pantxika", "06.01.01.01.01");
-    pair<string, string> unePaire2("Yann", "06.02.02.02.02");
-    pair<string, string> unePaire3("Philippe", "06.03.03.03.03");
-    pair<string, string> unePaire4("Patrick", "06.04.04.04.04");
+    // Remplir la liste avec des paires
+    maListeP.push_back(make_pair("Pantxika", "06.01.01.01.01"));
+    maListeP.push_back(make_pair("Yann", "06.02.02.02.02"));
+    maListeP.push_back(make_pair("Philippe", "06.03.03.03.03"));
+    maListeP.push_back(make_pair("Patrick", "06.04.04.04.04"));
 
-    // Remplir la liste
-    maListeP.push_back(unePaire1);
-    maListeP.push_back(unePaire2);
-    maListeP.push_back(unePaire3);
-    maListeP.push_back(unePaire4);
-
-    // Créer un itérateur
-    ListeP::iterator iterateurListeP;
-
-    // Itérer
-    iterateurListeP = maListeP.begin();
-    while (iterateurListeP != maListeP.end())
+    // Itérer et afficher chaque paire de la liste
+    for (ListeP::iterator it = maListeP.begin(); it != maListeP.end(); ++it)
     {
-        cout << iterateurListeP->first << " : " << iterateurListeP->second << endl;
-        iterateurListeP++;
+        cout << it->first << " : " << it->second << endl;
     }
 }
 
@@ -123,81 +104,40 @@ void leMap()
     Annuaire unAnnuaire;
 
     // Insérer des paires dans le map
-    Annuaire::value_type pantxika("Pantxika", "06.01.01.01.01");
-    Annuaire::value_type pantxika2("Pantxika", "06.01.01.01.01");
-    Annuaire::value_type yann("Yann", "06.02.02.02.02");
-    Annuaire::value_type philippe("Philippe", "06.03.03.03.03");
-    Annuaire::value_type patrick("Patrick", "06.04.04.04.04");
+    unAnnuaire.insert(make_pair("Pantxika", "06.01.01.01.01"));
+    unAnnuaire.insert(make_pair("Yann", "06.02.02.02.02"));
+    unAnnuaire.insert(make_pair("Philippe", "06.03.03.03.03"));
+    unAnnuaire.insert(make_pair("Patrick", "06.04.04.04.04"));
 
-    // Insérer les paires dans le map et récupérer le résultat de l'insertion
-    auto resultatInsert = unAnnuaire.insert(pantxika);
-    if (resultatInsert.second)
+    // Parcourir le map et afficher chaque valeur
+    for (Annuaire::iterator it = unAnnuaire.begin(); it != unAnnuaire.end(); ++it)
     {
-        cout << "Insertion BIEN realisee" << endl;
-    }
-    else
-    {
-        cout << "Insertion MAL realisee" << endl;
+        cout << it->first << " : " << it->second << endl;
     }
 
-/*  Renvoie juste une erreur
-    auto resultatInsert = unAnnuaire.insert(pantxika2);
-    if (resultatInsert.second)
-    {
-        cout << "Insertion BIEN realisee" << endl;
-    }
-    else
-    {
-        cout << "Insertion MAL realisee" << endl;
-    }*/
-
-    resultatInsert = unAnnuaire.insert(yann);
-    if (resultatInsert.second)
-    {
-        cout << "Insertion BIEN realisee" << endl;
-    }
-    else
-    {
-        cout << "Insertion MAL realisee" << endl;
-    }
-
-    resultatInsert = unAnnuaire.insert(philippe);
-    if (resultatInsert.second)
-    {
-        cout << "Insertion BIEN realisee" << endl;
-    }
-    else
-    {
-        cout << "Insertion MAL realisee" << endl;
-    }
-
-    resultatInsert = unAnnuaire.insert(patrick);
-    if (resultatInsert.second)
-    {
-        cout << "Insertion BIEN realisee" << endl;
-    }
-    else
-    {
-        cout << "Insertion MAL realisee" << endl;
-    }
-
-    // Créer un itérateur pour accéder aux éléments de unAnnuaire
-    Annuaire::iterator iterateurAnnuaire = unAnnuaire.begin();
-
-    // Parcourir le map en utilisant l'itérateur
-    for (; iterateurAnnuaire != unAnnuaire.end(); ++iterateurAnnuaire)
-    {
-        cout << iterateurAnnuaire->second << endl;
-    }
-
-    // Rechercher l'itérateur sur l'élément de unAnnuaire ayant "Philippe" comme clé
+    // Rechercher "Philippe"
     Annuaire::iterator iterateurPhilippe = unAnnuaire.find("Philippe");
-
-    // Vérifier si l'élément a été trouvé
-    if (iterateurPhilippe != unAnnuaire.end()) {
+    if (iterateurPhilippe != unAnnuaire.end())
+    {
         cout << "Element trouve : " << iterateurPhilippe->second << endl;
-    } else {
+    }
+    else
+    {
         cout << "Element non trouve" << endl;
+    }
+
+    // Test insertion déjà existente
+    string nom ="Patrick";
+    string tel = "999999999999";
+    auto resultat = unAnnuaire.insert(make_pair(nom, tel));
+
+    if (resultat.second)
+    {
+        cout << "Nouvelle paire inseree : " << resultat.first->first << " : " << resultat.first->second << endl;
+    }
+    else
+    {
+        cout << "Impossible d'inserer la paire " << nom << " " << tel << " : " << resultat.first->second << ", car " << resultat.first->first << " existe deja avec le numero de telephone : " << resultat.first->second << endl;
     }
 }
 
@@ -206,7 +146,7 @@ void leVector()
 {
     cout << "Execution du vector :" << endl;
     // Créer le vector
-    typedef std::vector<string> VectorS;
+    typedef vector<string> VectorS;
     VectorS Annulaire;
 
     // Ajouter des éléments au vector
@@ -226,7 +166,7 @@ void leDeque()
 {
     cout << "Execution du deque :" << endl;
     // Créer le deque
-    typedef std::deque<string> DequeS;
+    typedef deque<string> DequeS;
     DequeS Annulaire;
 
     // Ajouter des éléments au deque
@@ -241,3 +181,10 @@ void leDeque()
         cout << element << endl;
     }
 }
+
+/*
+bool Produit::operator> (const Produit& unProduit) const {
+    bool resultatat;
+    resultatat = (this->prix > unProduit.prix);
+    return resultatat;
+};*/
